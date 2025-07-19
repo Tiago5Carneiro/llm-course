@@ -4,13 +4,13 @@
 
 The first thing to keep in mind is the difference between NLP and LLMs, which are both taught in this course.
 
-Starting with NLP or Natural Language Processing :
+Starting with **NLP** or **Natural Language Processing** :
 
 - Is the broader field 
 - Focused on enabling computers to understand, interpret and generate human language
 - Encompasses techniques like sentiment analysis, named entity recognition and machine translation
 
-Now touching on LLMs or Large Language Models :
+Now touching on **LLMs** or **Large Language Models** :
 
 - Subset of NLP models
 - Massive size and extensive training data 
@@ -25,7 +25,7 @@ What I will be learning in this course :
 
 NLP is a field of linguistics and machine learning, focused on understanding human language, with all it's nuance.
 
-Common NLP tasks with examples :
+Common **NLP** tasks with examples :
 
 - Classifying whole sentences : Detecting if an email is spam, determining if a sentence is grammatically correct.
 - Classifying each word in a sentence : Identifying nouns, verbs, adjectives, or named entities like people, locations, organizations, etc..
@@ -35,14 +35,14 @@ Common NLP tasks with examples :
 
 ###  The Rise of Large Language Models (LLMs)
 
-Recently LLMs (which are a subset of NLPs) have revolutionized the field. They can be characterized by:
+Recently **LLMs** (which are a subset of NLPs) have revolutionized the field. They can be **characterized** by:
 
 - Scale : Huge ammounts of parameters (millions, billions or even hundreds of billions).
 - General capabilities : Can perform multiple tasks without task-specific training.
 - In-context learning : They perform tasks from the context given in a prompt.
 - Emergent abilities : As the models grow, new capabilities appear that weren't explicitly programmed or anticipated.
 
-Even with all these advantages, LLMs have their limitations : 
+Even with all these advantages, LLMs have their **limitations** : 
 
 - Hallucinations : They can generate incorrect information confidently 
 - Lack of true understanding : In essence, these models are made to predict, only operating on purely statistical patterns.
@@ -54,12 +54,30 @@ Even with all these advantages, LLMs have their limitations :
 
 Firstly, what even is a transformer?
 
-Transformer is a neural network arquitecture invented by Google in 2017. It's a core component in many modern LLMs.
+**Transformer** is a neural network arquitecture invented by Google in 2017. It's a core component in many modern LLMs.
 
 ### First exercise
 
-For the [first exercise](transformer_exercices.py), we run a sentiment analysis on the sentence - "I'm so excited for the upcoming weekend", which gave the following result :
+For the [first exercise](transformer_exercices.py#10), we run a sentiment analysis on the sentence
+
+```python
+"I'm so excited for the upcoming weekend"
+```
+
+Which gave the following result :
 
 ```python
 [{'label': 'POSITIVE', 'score': 0.9996603727340698}]
+```
+
+Multiple sentence is also available as you can see with [exercise 2](transformer_exercices.py#15). These sentences :
+
+```python
+["I am not happy with the service I received.", "That meal was delicious!"]
+```
+
+Generated the following output :
+
+```python
+[{'label': 'NEGATIVE', 'score': 0.9994329810142517}, {'label': 'POSITIVE', 'score': 0.9998834133148193}]
 ```
