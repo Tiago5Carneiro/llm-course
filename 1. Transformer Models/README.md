@@ -125,7 +125,7 @@ Generated the following output :
 
 ### Zero-Shot Classification
 
-Another one of the available pipelines is the zero-shot classification. In this pipeline, we provide a text, as well as a list of candidate labs that we wan't the model to associate with.
+Another one of the available pipelines is the zero-shot classification. In this pipeline, we provide a text, as well as a list of candidate labs that we want the model to associate with.
 
 #### Exercise 3
 
@@ -134,7 +134,7 @@ With the following input :
 ```python
 (
     "Portugal joined nato in 1949.",
-    candidate_labels=["education", "politics", "buisiness", "sports"]
+    candidate_labels=["education", "politics", "buisiness"]
 )
 ```
 
@@ -178,3 +178,73 @@ The pipeline provided me with :
 
 ### Using any model from the Hub in a pipeline
 
+The previous exercises were done without defining a specific model for the pipelines. However, a specific model can be defined.
+
+We can find more models to select and use [in this page](https://huggingface.co/models). These models can be tested using inference providers, which we can find [here](https://huggingface.co/docs/inference-providers/en/index)
+
+#### Exercise 5
+
+Defining the generator as :
+
+```python
+generator = pipeline("text-generation", model="HuggingFaceTB/SmolLM2-360M")
+```
+
+And running : 
+```python
+generator(
+    "In this course, we will teach you how to",
+    max_length=30,
+    num_return_sequences=2,
+)
+```
+
+We get :
+
+```python
+[{'generated_text': 'In this course, we will teach you how to design and build three-dimensional objects using the program. The object you will create will be a simple one, but you will learn how to build it using the program. You will also learn how to use the object to create other objects.\n\n\nThe basic parts of the program are the following:\n\n  1. The object. It will be a cube, square, circle, or any other shape.\n  2. The program will be a simple program that will display the object. The program will have a button and the object will be on the button.\n  3. The program will also have a function that will calculate the size of the object. The function will take in a number and return a number.\n  4. The function will also have a button that will display the object and the size of the object.\n  5. The object will also have a function that will display the size of the object. The function will take in a number and return a number.\n\n\nIf you want to learn how to design and build a cube, you can start by learning how to draw a cube on a piece of paper. Then, you can move on to building the cube using the program.\n\nThe program will allow you to create a cube using the program.'}, {'generated_text': 'In this course, we will teach you how to write a strong thesis statement, which is the most crucial part of your essay. Once you have a strong thesis statement, you can then start writing your essay. It will help you to organize your ideas and get your point across.\n\nIn this course, we will teach you how to write a strong thesis statement, which is the most crucial part of your essay. Once you have a strong thesis statement, you can then start writing your essay. It will help you to organize your ideas and get your point across.\n\nOur Thesis Statement Writing Service\n\n\nYou can get a thesis statement for any essay that you want, and it will help you to organize your ideas.\xa0\n\nWith our thesis statement writing service, you will be able to get a paper that is original and unique.\xa0\n\n\nOur thesis statement writing service will help you to write a thesis statement that will help you to organize your ideas.\xa0\n\nWe will make sure that you get a paper that is original and unique.\xa0\n\nOur Thesis Statement Writing Service\n\nWhat are the benefits of writing a thesis statement?\n\nThere are several benefits of writing a thesis statement. Here are a few of them:\n\n• It helps you to organize your ideas.\n• It'}]
+```
+
+### Mask filling
+
+This pipeline, as the name suggests, fills in masks, which are blank spots, in a text.
+
+Now with an example :
+
+```python
+classifier = pipeline("fill-mask")
+classifier(
+    "The capital of France is <mask>.",
+    top_k=5
+)
+```
+
+We get :
+
+```python
+[{'score': 0.2703714668750763, 'token': 2201, 'token_str': ' Paris', 'sequence': 'The capital of France is Paris.'}, {'score': 0.0558835007250309, 'token': 12790, 'token_str': ' Lyon', 'sequence': 'The capital of France is Lyon.'}, {'score': 0.029898053035140038, 'token': 4612, 'token_str': ' Barcelona', 'sequence': 'The capital of France is Barcelona.'}, {'score': 0.023081665858626366, 'token': 12696, 'token_str': ' Monaco', 'sequence': 'The capital of France is Monaco.'}, {'score': 0.02097989059984684, 'token': 5459, 'token_str': ' Berlin', 'sequence': 'The capital of France is Berlin.'}]
+```
+
+The `top_k` argument found above defines how many possibilities we want.
+
+> ⚠️ **Note:** Here the \<mask> is what the model replaces, also known as *mask token*. Depending on the model, this can change, so it's always good practice to check what the *mask token* for a model is when using it.
+
+### Named entity recognition
+
+The **Named entity recognition** (or **NER** for short) is a task where the model has to find which parts of a given text represent people, locations or organizations.
+
+With the pipeline defined :
+```python
+ner = pipeline("ner", grouped_entities=True)
+output = ner(
+    "Hugging Face is based in New York City.",
+)
+```
+
+We get :
+
+```python
+[{'entity_group': 'ORG', 'score': 0.8907566, 'word': 'Hugging Face', 'start': 0, 'end': 12}, {'entity_group': 'LOC', 'score': 0.9991805, 'word': 'New York City', 'start': 25, 'end': 38}]
+```
+
+Here I pass the `grouped_entities` as `true`, which tells the model to regroup parts of the same entity together.

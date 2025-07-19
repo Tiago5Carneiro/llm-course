@@ -66,6 +66,32 @@ def text_generation():
     )
     print(output)
 
+def text_generation_with_model():
+    global classifier
+    classifier = pipeline("text-generation", model="HuggingFaceTB/SmolLM2-360M")
+    output = classifier(
+        "In this course, we will teach you how to",
+        max_length=30,
+        num_return_sequences=2,
+    )
+    print(output)
+
+def mask_filling():
+    global classifier
+    set_classifier("fill-mask")
+    output = classifier(
+        "The capital of France is <mask>.",
+        top_k=5
+    )
+    print(output)
+
+def name_entity_recognition():
+    ner = pipeline("ner", grouped_entities=True)
+    output = ner(
+        "Hugging Face is based in New York City.",
+    )
+    print(output)
+
 def main():
     print("Welcome to the transformer exercises!")
     running = True
@@ -74,6 +100,9 @@ def main():
         print("1. Sentiment Analysis")
         print("2. Zero-shot Classification")
         print("3. Text Generation")
+        print("4. Text Generation with Model")
+        print("5. Mask Filling")
+        print("6. Name Entity Recognition")
         print("Q. Quit")
         choice = input("Enter the number of your choice: ")
         if choice == "1":
@@ -82,6 +111,12 @@ def main():
             zero_shot_classification()
         elif choice == "3":
             text_generation()
+        elif choice == "4":
+            text_generation_with_model()
+        elif choice == "5":
+            mask_filling()
+        elif choice == "6":
+            name_entity_recognition()
         elif choice.upper() == "Q":
             print("Exiting the program.")
             running = False
