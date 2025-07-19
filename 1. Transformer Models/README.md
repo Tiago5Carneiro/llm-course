@@ -58,11 +58,11 @@ Firstly, what even is a transformer?
 
 HuggingFace's opensource library contains a Transformers library, which I will be using.
 
-Let's start with the 
-```python 
-pipeline()
-```
-function, this function returns an object. It connects a model with it's necessary preprocessing and postprocessing steps, which allows us to input text and get an intelligible answer. It is the most high-level API, as all the necessary steps to transform the input into readable data for the model, the postprocessing necessary for human comprehension and the actual model computation are performed with it.
+Let's start with the `pipeline()` function, which returns an object that represents a pipeline. 
+
+This pipeline is the connection of a model with it's necessary preprocessing and postprocessing steps, which allows us to input text and get an intelligible answer. 
+
+It is the most high-level API, as all the necessary steps to transform the input into readable data for the model, the postprocessing necessary for human comprehension and the actual model computation are performed with it.
 
 There are plenty of available pipelines :
 
@@ -127,6 +127,8 @@ Generated the following output :
 
 Another one of the available pipelines is the zero-shot classification. In this pipeline, we provide a text, as well as a list of candidate labs that we wan't the model to associate with.
 
+#### Exercise 3
+
 With the following input :
 
 ```python
@@ -151,3 +153,28 @@ This pipeline gets it's name from the fact that it isn't needed to fine-tune the
 ### Text generation
 
 For text generation, the main idea is that, provided with an initial prompt, the model auto-completes it by generating the remaining text.
+
+With this pipeline we can select a maximum number of tokens used with `max_length` and a number of sequences with `num_return_sequences`.
+
+> ⚠️ **Note:** At some point the functionality of `max_length` went from defining the maximum number of words to maximum number of tokens, however the course has not been updated with that in mind.
+
+#### Exercise 4
+
+Given the following prompt :
+
+```python
+classifier(
+        "The future of AI is",
+        max_length=20,
+        num_return_sequences=1
+)
+```
+
+The pipeline provided me with :
+
+```python
+[{'generated_text': "The future of AI is unclear. The most likely scenario is that an AI is able to predict the future behavior of its fellow human beings, and may even understand how to avoid the consequences of those decisions.\n\nIn the past, we have seen robots making the same choices or making the same decisions over and over again. For example, in the 1970s, some researchers suggested that humans could choose between saving our lives and helping our relatives and friends. But in the 1980s, scientists began to see how machines could do that—and we began to see the effects of robot choices on human outcomes.\n\nWe are starting to see more and more of this. We're living in a world where we can't choose how we want our food or the clothes we wear. In recent years, some researchers have proposed that human beings may be able to do things that humans can't do, including:\n\nStop having children\n\nStop going to the doctor for help\n\nHelp people with chronic diseases\n\nStop breastfeeding\n\nCreate and use robots for medical research\n\nIn this sense, these proposals are pretty much on track. The work on artificial intelligence has been moving in this direction for a while now, and it's only now that machines are starting to take a more human-centered"}]
+```
+
+### Using any model from the Hub in a pipeline
+

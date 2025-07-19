@@ -1,6 +1,6 @@
 from transformers import pipeline
 
-classfier = None
+classifier = None
 
 def set_classifier(type):
     global classifier
@@ -61,7 +61,7 @@ def text_generation():
     set_classifier("text-generation")
     output = classifier(
         "The future of AI is",
-        max_length=50,
+        max_length=20,
         num_return_sequences=1
     )
     print(output)
@@ -73,12 +73,15 @@ def main():
         print("Choose one of the available pipelines:")
         print("1. Sentiment Analysis")
         print("2. Zero-shot Classification")
+        print("3. Text Generation")
         print("Q. Quit")
         choice = input("Enter the number of your choice: ")
         if choice == "1":
             sentiment_main()
         elif choice == "2":
             zero_shot_classification()
+        elif choice == "3":
+            text_generation()
         elif choice.upper() == "Q":
             print("Exiting the program.")
             running = False
