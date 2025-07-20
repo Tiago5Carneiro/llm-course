@@ -37,7 +37,7 @@ Common **NLP** tasks with examples :
 
 Recently **LLMs** (which are a subset of NLPs) have revolutionized the field. They can be **characterized** by:
 
-- Scale : Huge ammounts of parameters (millions, billions or even hundreds of billions).
+- Scale : Huge amounts of parameters (millions, billions or even hundreds of billions).
 - General capabilities : Can perform multiple tasks without task-specific training.
 - In-context learning : They perform tasks from the context given in a prompt.
 - Emergent abilities : As the models grow, new capabilities appear that weren't explicitly programmed or anticipated.
@@ -248,3 +248,127 @@ We get :
 ```
 
 Here I pass the `grouped_entities` as `true`, which tells the model to regroup parts of the same entity together.
+
+As stated before, the model can identifie a person (PER), a location (LOC) and an organization (ORG).
+
+### Question answering
+
+This pipeline answers a question using information that was provided as context.
+
+When running :
+
+```python
+classifier = pipeline(question-answering)
+output = classifier(
+    question="What is the capital of France?",
+    context="Paris is the capital of France."
+)
+```
+
+We get :
+
+```python
+{'score': 0.9960771203041077, 'start': 0, 'end': 5, 'answer': 'Paris'}
+```
+
+> ℹ️ **Info:** This pipeline only provides the answer from the context given, it does not generate new text.
+
+### Summarization
+
+This task has the model reduce a text into a shorter text while keeping all (or almost all) of the important aspects refered in the text.
+
+We can set the minimum and maximum amount of words the text can have with `min_length` and `max_length` respectively. We can also set if we want the model to be more or less creative with the argument `do_sample`. If set to `False`, the model will use greedy decoding (always picking the most likely next token). If set to `True` however, the model will choose from the probability distribution of possible next tokens, making the answers more diverse and creative.
+
+Running the model like this :
+
+```python
+classifier = pipeline("summarization", model="facebook/bart-large-cnn")
+output = classifier(
+    '''Hugging Face is a company that provides tools and services for natural language processing. 
+    They are known for their open-source libraries and models, which have become widely used in the AI community. 
+    Hugging Face also offers a platform for hosting and sharing models, making it easier for developers to access and use state-of-the-art AI technologies. 
+    Their mission is to democratize AI and make it accessible to everyone.''',
+    max_length=50,
+    min_length=25,
+)
+```
+
+We get :
+
+```python
+[{'summary_text': 'Hugging Face is a company that provides tools and services for natural language processing. They are known for their open-source libraries and models, which have become widely used in the AI community.'}]
+```
+
+### Translation
+
+When translating, there are 2 available options. The first one is stating in the pipeline which translation you want, like `translation_en_to_fr`. However, it is advisable to instead pick a model that was trained to perform that specific translation.
+
+Creating the pipeline and the output :
+
+```python
+translator = pipeline("translation", model="Helsinki-NLP/opus-mt-fr-en")
+output = translator("Ce cours est produit par Hugging Face.")
+```
+
+We get : 
+
+```python
+[{'translation_text': 'This course is produced by Hugging Face.'}]
+```
+
+### Image and audio pipelines
+
+Another amazing thing about transformers is how they can also perform tasks with images and audio.
+
+#### Image Classification
+
+This pipeline classifies an image.
+
+Running this pipeline :
+
+```python
+image_classifier = pipeline(
+    task="image-classification", model="google/vit-base-patch16-224"
+)
+result = image_classifier(
+    "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/pipeline-cat-chonk.jpeg"
+)
+```
+
+I got :
+
+```python
+[{'label': 'lynx, catamount', 'score': 0.4334995746612549}, {'label': 'cougar, puma, catamount, mountain lion, painter, panther, Felis concolor', 'score': 0.03479621559381485}, {'label': 'snow leopard, ounce, Panthera uncia', 'score': 0.03240194916725159}, {'label': 'Egyptian cat', 'score': 0.023944787681102753}, {'label': 'tiger cat', 'score': 0.022889269515872}]
+```
+
+#### Automatic speech recognition
+
+This pipeline recognises text from an audio.
+
+Running : 
+
+```python
+transcriber = pipeline(task="automatic-speech-recognition", model="openai/whisper-large-v3")
+result = transcriber("https://huggingface.co/datasets/Narsil/asr_dummy/resolve/main/mlk.flac")
+```
+
+I got :
+
+```python
+{'text': ' I have a dream that one day this nation will rise up and live out the true meaning of its creed.'}
+```
+
+### Combining data from multiple sources
+
+A great thing about transformers is how they can combine and process a variety of different data types (audio, text, images, etc...). 
+
+This is especially useful when you need to:
+
+1. Search across multiple databases or repositories
+2. Consolidate information from different formats (text, images, audio)
+3. Create a unified view of related information
+
+For example, you could build a system that:
+- Searches for information across databases in multiple modalities like text and image.
+- Combines results from different sources into a single coherent response. For example, from an audio file and text description.
+- Presents the most relevant information from a database of documents and metadata.

@@ -92,6 +92,53 @@ def name_entity_recognition():
     )
     print(output)
 
+def question_answering():
+    global classifier
+    set_classifier("question-answering")
+    output = classifier(
+        question="What is the capital of France?",
+        context="Paris is the capital of France."
+    )
+    print(output)
+
+def summarization():
+    global classifier
+    # had to specify the model here because the default one was not working
+    # with the safetensors format
+    classifier = pipeline("summarization", model="facebook/bart-large-cnn")
+    output = classifier(
+        '''Hugging Face is a company that provides tools and services for natural language processing. 
+        They are known for their open-source libraries and models, which have become widely used in the AI community. 
+        Hugging Face also offers a platform for hosting and sharing models, making it easier for developers to access and use state-of-the-art AI technologies. 
+        Their mission is to democratize AI and make it accessible to everyone.''',
+        max_length=50,
+        min_length=25,
+    )
+    print(output)
+
+def translation():
+    global classifier
+    translator = pipeline("translation", model="Helsinki-NLP/opus-mt-fr-en")
+    output = translator("Ce cours est produit par Hugging Face.")
+    print(output)
+
+def image_classification():
+    image_classifier = pipeline(
+    task="image-classification", model="google/vit-base-patch16-224"
+    )
+    result = image_classifier(
+        "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/pipeline-cat-chonk.jpeg"
+    )
+    print(result)
+
+def audio_speech_recognition():
+    transcriber = pipeline(
+    task="automatic-speech-recognition", model="openai/whisper-large-v3")
+    result = transcriber(
+        "https://huggingface.co/datasets/Narsil/asr_dummy/resolve/main/mlk.flac"
+    )
+    print(result)
+
 def main():
     print("Welcome to the transformer exercises!")
     running = True
@@ -103,6 +150,11 @@ def main():
         print("4. Text Generation with Model")
         print("5. Mask Filling")
         print("6. Name Entity Recognition")
+        print("7. Question Answering")
+        print("8. Summarization")
+        print("9. Translation")
+        print("10. Image Classification")
+        print("11. Audio Speech Recognition")
         print("Q. Quit")
         choice = input("Enter the number of your choice: ")
         if choice == "1":
@@ -117,6 +169,16 @@ def main():
             mask_filling()
         elif choice == "6":
             name_entity_recognition()
+        elif choice == "7":
+            question_answering()
+        elif choice == "8":
+            summarization()
+        elif choice == "9":
+            translation()
+        elif choice == "10":
+            image_classification()
+        elif choice == "11":
+            audio_speech_recognition()
         elif choice.upper() == "Q":
             print("Exiting the program.")
             running = False
