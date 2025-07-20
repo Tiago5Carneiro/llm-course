@@ -1,6 +1,4 @@
-# Tranformer Models
-
-## Introduction 
+# Introduction 
 
 The first thing to keep in mind is the difference between NLP and LLMs, which are both taught in this course.
 

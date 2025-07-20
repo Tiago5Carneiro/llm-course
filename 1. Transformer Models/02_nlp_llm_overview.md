@@ -1,6 +1,4 @@
-# Tranformer Models
-
-##  Natural Language Processing and Large Language Models
+#  Natural Language Processing and Large Language Models
 
 NLP is a field of linguistics and machine learning, focused on understanding human language, with all it's nuance.
 
@@ -12,7 +10,7 @@ Common **NLP** tasks with examples :
 - Extracting and answer from a text : Provided a question and a context, answering the given question.
 - Generating a new sentence from an input text : Translating a text from another language or creating a summary of a given text.
 
-###  The Rise of Large Language Models (LLMs)
+##  The Rise of Large Language Models (LLMs)
 
 Recently **LLMs** (which are a subset of NLPs) have revolutionized the field. They can be **characterized** by:
 
