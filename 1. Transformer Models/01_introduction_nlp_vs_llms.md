@@ -20,3 +20,7 @@ Now touching on **LLMs** or **Large Language Models** :
 What I will be learning in this course :
 
 ![What to expect](../media/what_to_expect.png)
+
+---
+
+➡️ [Next: NLP and LLM Overview](02_nlp_llm_overview.md)

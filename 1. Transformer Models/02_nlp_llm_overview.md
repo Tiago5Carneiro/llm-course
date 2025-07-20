@@ -28,3 +28,7 @@ Even with all these advantages, LLMs have their **limitations** :
 - Bias : They may represent bias found in trainning data or inputs.
 - Context windows : Their context is limited by the size of the context windows.
 - Computational resources : A lot of resources are required for the computations that LLMs do.
+
+---
+
+➡️ [Next: Transformer Pipelines](03_transformer_pipelines.md)

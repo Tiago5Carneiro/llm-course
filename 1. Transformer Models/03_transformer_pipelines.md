@@ -322,3 +322,7 @@ For example, you could build a system that:
 - Searches for information across databases in multiple modalities like text and image.
 - Combines results from different sources into a single coherent response. For example, from an audio file and text description.
 - Presents the most relevant information from a database of documents and metadata.
+
+---
+
+➡️ [Next: Transformer Architecture and History](04_transformer_architecture.md)
