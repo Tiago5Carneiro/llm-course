@@ -29,4 +29,4 @@ Even with all these advantages, LLMs have their **limitations** :
 
 ---
 
-➡️ [Next: Transformer Pipelines](03_transformer_pipelines.md)
+⬅️ [Back to Introduction: NLP vs LLMs](02_nlp_llm_overview.md) ➡️ [Next: Transformer Pipelines](03_transformer_pipelines.md)

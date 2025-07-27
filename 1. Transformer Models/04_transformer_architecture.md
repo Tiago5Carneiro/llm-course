@@ -42,5 +42,42 @@ This is why it's so important to share the trained weights and building on top o
 
 ## Transfer learning
 
-Training a model from scratch has the model have randomly initialized weights, and the training starts without any prior knowledge.
+Training a model from scratch has the model have randomly initialized weights, and the training starts without any prior knowledge. This act is called *Pretraining*
 
+![Pretraining](https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter1/pretraining-dark.svg)
+
+This pretraining is done with very large amounts of data, taking usually weeks to complete.
+
+*Fine-tuning* on the other hand is the act of training the model **after** a model has been pretrained. This consists in grabbing the model after having been pretrained and train it to the specific task at hand.
+
+#### Why not train the model for the final use right away?
+
+There's a couple of reasons for that :
+
+- The pretraining has already been done with data that is very similar to the fine-tuning task.
+- Since the pretraining has already been done with a lot of data, the fine-tuning requires little data to get decent results.
+- For these reasons, the amount of time and resources needed to get good results are much lower.
+
+A good example is a model trained for the English language, that is then fine-tuned with arXiv corpus, which results in a science/research focused model. Thanks to the pretraining present, the cost of the final model is much lower, since all it's missing is fine-tuning the model.
+
+![Benifit of fine-tuning](https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter1/finetuning-dark.svg)
+
+Here's 2 final things to keep in mind when thinking of fine-tuning :
+
+- The lower time, data required, financial and environmental costs are very big reasons why we should fine-tune instead of training from scratch.
+- This process earns better results than training from scratch, so if possible always fine-tune a model that is a close to the required task as possible.
+
+## General Transformer Architecture
+
+A model is composed primarily of 2 blocks :
+
+- **Encoder** : It receives an input and builds a representation of it (it's features). That means the encoder models are optimized to acquire the understanding of it's input.
+- **Decoder** : This block uses the understanding from the encoder (features) along with other inputs to generate a target sentence. It is therefor optimized for generating outputs.
+
+![Encoder-Decoder](https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter1/transformers_blocks-dark.svg)
+
+Each part can be used independently, depending on what's required :
+
+- **Enconder-only models** : Good for tasks that required understanding like sentence classification and named entity recognition.
+- **Decoder-only models** : Excelente for generative tasks like text generation.
+- **Encoder-Decoder models** or **sequence-to-sequence models** : Good for generative tasks that require input like translations and summarization.
