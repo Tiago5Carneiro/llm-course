@@ -81,3 +81,37 @@ Each part can be used independently, depending on what's required :
 - **Enconder-only models** : Good for tasks that required understanding like sentence classification and named entity recognition.
 - **Decoder-only models** : Excelente for generative tasks like text generation.
 - **Encoder-Decoder models** or **sequence-to-sequence models** : Good for generative tasks that require input like translations and summarization.
+
+## Attention Layers
+
+These layers pretty much tell the model which words to pay most attention to (and which ones to pretty much ignore). 
+
+Here's an example. Let's say you want to use a model to translate from English the sentence "You like this course" to French. In order for the model to properly translate the word "like" it would have to pay attention to the word "You", since the conjugation matters in french. In that vein, it can pretty much ignore all other words from that sentence as those will not affect the translation of the word "like". As sentences get more complex (and have more complex grammar rules), the model would need to pay special attention to words that might appear farther away to properly translate each word.
+
+This concept also applies to natural language. A word by itself has a meaning, but the meaning is deeply affected by it's context, which could be any word (or words) before or after said word.
+
+## The original architecture
+
+The Transformers architecture was originally designed for translation. During training, the encoder received inputs (sentences) in a certain language, while de decoder received the same sentences in the target language. The decoder works sequentially, which means it can only pay attention to words that have already been translated. For example, when trying to predict a forth word, it can only look at the 3 previous words and all the inputs from the encoder.
+
+To speed up the training, the decoder was only allowed to use the words before the current word he's trying to predict.
+
+The original architecture was the following :
+
+![The original architecture](https://huggingface.co/datasets/huggingface-course/documentation-images/resolve/main/en/chapter1/transformers-dark.svg)
+
+> ⚠️ **Note:** The first attention layer in a decoder pays attention to all (past) inputs of the decoder, but the second attention layer uses the output of the encoder. It can thus access the whole input sentence to best predict the current word. This is very important as different languages have different grammatical rules that put words in different orders, or seom context provided later in the sentence may be helpful to determine the best translation of a given word.
+
+The *attention-mask* can be used in the encoder/decoder to prevent the model from paying attention to some special words like, for example, the special padding word used to make all inputs the same length when batching together senteces.
+
+## Architecture vs. checkpoints
+
+This course touches on a lot of concepts. There are 3 main ones that should not be confused on, *architectures*, *checkpoints* and *models* : 
+
+- **Architecture** : This is the skeleton, the definition of each layer and operation that happens within the model.
+- **Checkpoints** : These are the weights that will be loaded in a given architecture.
+- **Model** : This term can be used for both *architectures* and *checkpoints*, however, when reducing ambiguity matters, both terms will be used in place of model.
+
+> ℹ️ **Info:** A good example of this is BERT, which is an architecture while `bert-base-cased` is a set of weights trained by the Google team for the first release of BERT. Both "the BERT model" and "the `bert-base-cased` model" are valid descriptions of it.
+
+⬅️ [Back to Transformer Pipelines](03_transformer_pipelines.md) ➡️ [Next: Transformer Task Execution](05_transformer_task_execution.md)

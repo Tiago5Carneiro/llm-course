@@ -8,3 +8,4 @@ This chapter covers the basics and applications of transformer models using Hugg
 - [NLP and LLM Overview](02_nlp_llm_overview.md)
 - [Transformer Pipelines](03_transformer_pipelines.md)
 - [Transformer Architecture and History](04_transformer_architecture.md)
+- [Transformer Task Execution](05_transformer_task_execution.md)
